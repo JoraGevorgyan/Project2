@@ -1,5 +1,5 @@
 #include <iostream>
-#include "bankAccountInfoCtrl.hpp"
+#include "bankAccountCtrl.hpp"
 
 int main() {
     std::cout << "***Account Information System***\n";
@@ -30,10 +30,12 @@ int main() {
                 bank::updateRec();
                 break;
             case('5'): //delete record
-                bank::deleteRec();
+                bank::rmRec();
                 break;
             default: //there's no option, user needs to try again
-                std::cout << "There's no option, that you have chosen.\nPlease try again\n\n";
+                std::cout << "\nThere's no option: \"" 
+                    << option
+                    << "\"\nPlease try again\n\n";
         }
     }
 }
