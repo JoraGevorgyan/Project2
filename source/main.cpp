@@ -1,9 +1,10 @@
 #include <iostream>
-#include "bankAccountCtrl.hpp"
+#include "accountCtrl.hpp"
 
 int main() {
-    std::cout << "***Account Information System***\n";
-    while(true) {
+    Base editBase;
+    bool loopTest = true;
+    while(loopTest) {
         std::cout << "Select one option below\n"
             << "        1--> Add record to file\n"
             << "        2--> Show record from file\n"
@@ -16,21 +17,22 @@ int main() {
         std::cin >> option;
         switch(option) {
             case('0'): // quit program
-                return 0;
+                loopTest = false;
+                break;
             case('1'): //add record to file
-                bank::addRec();
+                editBase.addRec();
                 break;
             case('2'): //show record from file
-                bank::showRec();
+                editBase.showRec();
                 break;
             case('3'): //search record from file
-                bank::searchRec();
+                editBase.searchRec();
                 break;
             case('4'): //update record
-                bank::updateRec();
+                editBase.updateRec();
                 break;
             case('5'): //delete record
-                bank::rmRec();
+                editBase.rmRec();
                 break;
             default: //there's no option, user needs to try again
                 std::cout << "\nThere's no option: \"" 
@@ -38,4 +40,5 @@ int main() {
                     << "\"\nPlease try again\n\n";
         }
     }
+    return 0;
 }

@@ -1,32 +1,46 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include <vector>
+#include <utility> //for pair
+#include <map>
+#include "./json/single_include/nlohmann/json.hpp"
 
 using ULLong = unsigned long long;
-
+using json = nlohmann::json;
 struct Account {
         Account();
         Account(const unsigned&, const std::string&, const std::string&, const ULLong&);
         std::istream& operator >> (std::istream&);
         std::ostream& operator << (std::ostream&);
+        friend struct Base;
     protected:
         unsigned num;  //account ID
         std::string firstName;
         std::string lastName;
         ULLong balance;
 };
-/*
-struct  AccountBase : public Account {
-        AccountBase(std::string);
+
+struct Base {
+        Base();
+        Base(char*);
+        ~Base();
+        void addRec();
+        void showRec();
+        void searchRec();
+        void updateRec();
+        void rmRec();
     private:
-        friend Account searchRec(unsigned);
-        friend unsigned addRec(const Account&);
-        friend int rmRec(unsigned);
-        int baseFileDescriptor;
-        std::vector< int > listofID;
+        void showAllRecords();
+        void from_json(const json&, Account&);
+        void from_json(const json&, std::map< unsigned, Account >&);
+        void to_json(const Account&, json&);
+        void to_json(const std::map< unsigned, Account >&, json&);
+
+        char* pathToBase;
+        std::map< unsigned, Account > localBase;
+        json jsonBase;
 };
-*/
+
 /*this function will be used for Account's istream operator*/
 template <class type>
 std::pair<type, bool> getNumber(std::string str, type maxSize) {
@@ -60,20 +74,3 @@ std::pair<type, bool> getNumber(std::string str, type maxSize) {
     return res;
 }
 
-namespace bank {
-    void addRec() {
-        std::cout << "add rec\n";
-    }
-    void showRec() {
-        std::cout << "show rec\n";
-    }
-    void searchRec() {
-        std::cout << "search rec\n";
-    }
-    void updateRec() {
-        std::cout << "update rec\n";
-    }
-    void rmRec() {
-        std::cout << "update rec\n";
-    }
-}

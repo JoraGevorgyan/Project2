@@ -1,4 +1,4 @@
-#include "bankAccountCtrl.hpp"
+#include "accountCtrl.hpp"
 #include <iostream>
 #include <climits>
 #include <string>
@@ -128,4 +128,3 @@ std::ostream& Account::operator << (std::ostream& out) {
         << "\nCurrent Balance: " << balance << '\n';
     return out;
 }
-
