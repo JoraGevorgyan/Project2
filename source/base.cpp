@@ -8,8 +8,10 @@
  * and convert to localBase
  */
 Base::Base() // if ther's no given file, set as default
-    :pathToBase("accountBase.json")
+    //:pathToBase("accountBase.json")
     {
+        char defaultPath[] = "accountBase.json";
+        pathToBase = defaultPath;
         std::ifstream ifs(pathToBase);
         if(ifs.peek() != EOF) {
             ifs >> jsonBase;
@@ -63,11 +65,12 @@ void Base::to_json(const Account& obj, json& j) {
 void Base::from_json(const json& j, std::map< unsigned, Account >& container) {
     for(json::iterator it = j.begin(); it != j.end(); ++it) {
         std::pair< unsigned, Account > tmp;
-        it->at["ID"].get_to(tmp.first);
+        it->at("ID").get_to(tmp.first);
         json object{};
-        it->at["object"].get_to(object);
+        it->at("object").get_to(object);
         from_json(object, tmp.second);
         container.insert(tmp);
+    }
 }
 
 void Base::to_json(const std::map< unsigned, Account >& container, json& j) {
