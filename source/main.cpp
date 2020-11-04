@@ -2,7 +2,7 @@
 #include "accountCtrl.hpp"
 
 int main() {
-    Base editBase;
+    Base editBase; // this is an object, that will work with data base
     bool loopTest = true;
     while(loopTest) {
         std::cout << "Select one option below\n"
