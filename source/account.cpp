@@ -121,7 +121,7 @@ std::istream& operator >> (std::istream& in, Account& a) {
 }
 
 std::ostream& operator << (std::ostream& out, const Account& a) {
-    out << "Record " << a.num << " has following data:"
+    out << "Record " << a.num << " has following data:\n"
         << "\nAccount Number (ID): " << a.num
         << "\nFirst Name: " << a.firstName
         << "\nLast Name: " << a.lastName

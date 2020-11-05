@@ -4,10 +4,13 @@
 #include <utility> //for pair
 #include <map>
 #include "./json/single_include/nlohmann/json.hpp"
-//
-//"account.cpp"
-//"base.cpp"
-//
+
+/*
+ * "main.cpp"
+ *"account.cpp"
+ *"base.cpp"
+ */
+
 using ULLong = unsigned long long;
 using json = nlohmann::json;
 struct Account {
@@ -25,7 +28,7 @@ struct Account {
 
 struct Base {
         Base();
-        Base(char*);
+        Base(std::string path);
         ~Base();
         void addRec();
         void showRec();
@@ -39,9 +42,10 @@ struct Base {
         void to_json(const Account&, json&);
         void to_json(const std::map< unsigned, Account >&, json&);
 
-        char* pathToBase;
+        std::string pathToBase;
         std::map< unsigned, Account > localBase;
-        json jsonBase;
+        json inputBase;
+        json outputBase;
 };
 
 /*this function will be used for Account's istream operator*/

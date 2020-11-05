@@ -7,35 +7,33 @@
  * read all data from it
  * and convert to localBase
  */
-Base::Base() // if ther's no given file, set as default
-    //:pathToBase("accountBase.json")
-    {
-        char defaultPath[] = "accountBase.json";
+Base::Base() {  // if ther's no given file, set as default
+        std::string defaultPath = "accountBase.json";
         pathToBase = defaultPath;
         std::ifstream ifs(pathToBase);
         if(ifs.peek() != EOF) {
-            ifs >> jsonBase;
+            ifs >> inputBase;
         }
-        from_json(jsonBase, localBase);
+        from_json(inputBase, localBase);
     }
 
-Base::Base(char* path) // if there's given data file path, do the same with it
+Base::Base(std::string path) // if there's given data file path, do the same with it
     :pathToBase(path)
     {
         std::ifstream ifs(pathToBase);
         if(ifs.peek() != EOF) {
-            ifs >> jsonBase;
+            ifs >> inputBase;
         }
-        from_json(jsonBase, localBase);
+        from_json(inputBase, localBase);
     }
 /*
  * upgrade base file
  * in destructor
  */
 Base::~Base() {
-    to_json(localBase, jsonBase);
+    to_json(localBase, outputBase);
     std::ofstream ofs(pathToBase);
-    ofs << jsonBase;
+    ofs << outputBase;
 }
 
 /*
@@ -89,7 +87,9 @@ void Base::addRec() {
     Account tmp;
     std::cin >> tmp;
     if(!localBase.insert(std::pair< unsigned, Account >(tmp.num, tmp)).second) {
-        std::cout << "An account with ID \"" << tmp.num << "\" already exist\n";
+        std::cout << "\nAn account with ID \"" << tmp.num << "\" already exist\n\n";
+    } else {
+        std::cout << "\nRecord successfully added.\n\n";
     }
 }
 
@@ -100,62 +100,68 @@ void Base::showRec() {
     std::cin >> num;
     std::map< unsigned, Account >::iterator it = localBase.find(num);
     if(it != localBase.end()) {
-        std::cout << it->second;
+        std::cout << it->second << "\n";
     } else {
         std::cout << "There's no account on this ID\n";
     }
 }
 
 void Base::searchRec() {
-    std::cout << "Select one option below to search a Record\n"
-        << "        1-->Search with Record's name\n"
-        << "        2-->Search with Record's surname\n"
-        << "        0-->For exit\n";
-    char option;
-    std::cin >> option;
-    unsigned cntr; // for first and second cases
-    switch(option) {
-        case '0':
-            break;
-        case '1': {
-                      std::cout << "Enter name for search: ";
-                      std::string name;
-                      std::cin >> name;
-                      cntr = 0;
-                      for(const std::pair< unsigned, Account >& current : localBase) {
-                          if(current.second.firstName == name) {
-                              ++cntr;
-                              std::cout << current.first << ' ';
+    bool loopTest = true;
+    while(loopTest) {
+        std::cout << "Select one option below to search a Record\n"
+            << "        1-->Search with Record's name\n"
+            << "        2-->Search with Record's surname\n"
+            << "        0-->For exit\n";
+        char option;
+        unsigned cntr = 0; // for counting found results
+        std::cin >> option;
+        switch(option) {
+            case '0':
+                loopTest = false;
+                break;
+            case '1': {
+                          loopTest = false;
+                          std::cout << "Enter name for search: ";
+                          std::string name;
+                          std::cin >> name;
+                          cntr = 0;
+                          for(const std::pair< unsigned, Account >& current : localBase) {
+                              if(current.second.firstName == name) {
+                                  ++cntr;
+                                  std::cout << current.first << ' ';
+                              }
                           }
-                      }
-                      if(cntr == 0) {
-                          std::cout << "no result with \"" << name << "\".\n";
-                      } else {
-                          std::cout << "That's all we found: " << cntr << " record(s).\n";
-                      }
-                      break;
-                  }
-        case '2': {
-                      std::cout << "Enter surname for search: ";
-                      std::string surname;
-                      std::cin >> surname;
-                      cntr = 0;
-                      for(const std::pair< unsigned, Account >& current : localBase) {
-                          if(current.second.lastName == surname) {
-                              ++cntr;
-                              std::cout << current.first << ' ';
+                          if(cntr == 0) {
+                              std::cout << "no result with \"" << name << "\".\n";
+                          } else {
+                              std::cout << "\nThat's all we found: " << cntr << " record(s).\n";
                           }
+                          break;
                       }
-                      if(cntr == 0) {
-                          std::cout << "no result with \"" << surname << "\".\n";
-                      } else {
-                          std::cout << "That's all we found: " << cntr << " record(s).\n";
+            case '2': {
+                          loopTest = false;
+                          std::cout << "Enter surname for search: ";
+                          std::string surname;
+                          std::cin >> surname;
+                          cntr = 0;
+                          for(const std::pair< unsigned, Account >& current : localBase) {
+                              if(current.second.lastName == surname) {
+                                  ++cntr;
+                                  std::cout << current.first << ' ';
+                              }
+                          }
+                          if(cntr == 0) {
+                              std::cout << "no result with \"" << surname << "\".\n";
+                          } else {
+                              std::cout << "That's all we found: " << cntr << " record(s).\n";
+                          }
+                          break;
                       }
-                      break;
-                  }
-        default: {
-                     std::cout << "ther's no option\n";
-                 }
+            default: {
+                         std::cout << "ther's no option\nPlease try  again\n";
+                     }
+        }
     }
 }
 
@@ -173,9 +179,13 @@ void Base::updateRec() {
             << "\nEnter data to modify\n\n";
         Account editor;
         std::cin >> editor;
-        it->second = editor;
+        if(editor.num == it->first) {
+            it->second = editor;
+        } else {
+            std::cout << "\nYou can't change account ID\n\n";
+        }
     } else {
-        std::cout << "There's no account on this ID\n";
+        std::cout << "\nThere's no account on this ID\n\n";
     }
 }
 
@@ -183,11 +193,11 @@ void Base::rmRec() {
     showAllRecords();
     std::cout << "Enter the record ID, that you want to remove, from the given list: ";
     unsigned num;
-    std::map< unsigned, Account >::iterator it = localBase.find(num);
+    std::cin >> num;
+    std::map< unsigned, Account >::const_iterator it = localBase.find(num);
     if(it != localBase.end()) {
-        std::cout << "The record with data :\n";
         std::cout << it->second;
-        std::cout << "\nwas removed\n";
+        std::cout << "The record removed\n";
         localBase.erase(it);
     } else {
         std::cout << "There's no account on this ID\n";
