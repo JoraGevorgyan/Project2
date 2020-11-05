@@ -1,11 +1,12 @@
 #pragma once
-#include <iostream>
+#include <iostream> //for input/output
 #include <string>
 #include <utility> //for pair
-#include <map>
+#include <map>     // for local container
 #include "./json/single_include/nlohmann/json.hpp"
 
 /*
+ * you need to ignore these 
  * "main.cpp"
  *"account.cpp"
  *"base.cpp"
@@ -13,9 +14,11 @@
 
 using ULLong = unsigned long long;
 using json = nlohmann::json;
+
 struct Account {
         Account();
-        Account(const unsigned&, const std::string&, const std::string&, const ULLong&);
+        Account(const unsigned& num, const std::string& firstName
+                , const std::string& lastName, const ULLong& balance);
         friend std::istream& operator >> (std::istream& in, Account& a);
         friend std::ostream& operator << (std::ostream& out, const Account& a);
         friend struct Base;
@@ -27,8 +30,18 @@ struct Account {
 };
 
 struct Base {
+        /*
+         * default constructor will
+         * open "accountBase.json" file (and create it, if not exist)
+         * and will read all data from file and convert it into the localBasse
+         */
         Base();
-        Base(std::string path);
+        Base(std::string path); // the same as default, but the file is given as afgument
+        /*
+         * destructor will
+         * convert all data from localBase to outputBase
+         * and write it in the file
+         */
         ~Base();
         void addRec();
         void showRec();
@@ -36,11 +49,11 @@ struct Base {
         void updateRec();
         void rmRec();
     private:
-        void showAllRecords();
-        void from_json(const json&, Account&);
-        void from_json(const json&, std::map< unsigned, Account >&);
-        void to_json(const Account&, json&);
-        void to_json(const std::map< unsigned, Account >&, json&);
+        void showAllRecords(); //shows all record's IDs from local base
+        void from_json(const json& j, Account& obj);
+        void from_json(const json& j, std::map< unsigned, Account >& container);
+        void to_json(const Account& obj, json& j);
+        void to_json(const std::map< unsigned, Account >& container, json& j);
 
         std::string pathToBase;
         std::map< unsigned, Account > localBase;

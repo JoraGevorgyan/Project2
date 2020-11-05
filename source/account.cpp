@@ -1,13 +1,11 @@
 #include "accountCtrl.hpp"
-#include <iostream>
-#include <climits>
-#include <string>
+#include <climits> // for max size of types
 
 Account::Account()
     :num(0)
+     ,balance(0)
      ,firstName("unknown")
      ,lastName("unknown")
-     ,balance(0)
 {
 }
 

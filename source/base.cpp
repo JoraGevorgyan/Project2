@@ -1,5 +1,5 @@
 #include "accountCtrl.hpp"
-#include <fstream>
+#include <fstream> // read and write in/on the file
 
 /*
  * in constructors will test,
@@ -94,6 +94,10 @@ void Base::addRec() {
 }
 
 void Base::showRec() {
+    if(localBase.empty()) {
+        std::cout << "There's no record\n\n";
+        return;
+    }
     showAllRecords();
     std::cout << "Enter the record ID, that you want to see, from the given list: ";
     unsigned num;
@@ -107,6 +111,10 @@ void Base::showRec() {
 }
 
 void Base::searchRec() {
+    if(localBase.empty()) {
+        std::cout << "There's no record\n\n";
+        return;
+    }
     bool loopTest = true;
     while(loopTest) {
         std::cout << "Select one option below to search a Record\n"
@@ -154,7 +162,7 @@ void Base::searchRec() {
                           if(cntr == 0) {
                               std::cout << "no result with \"" << surname << "\".\n";
                           } else {
-                              std::cout << "That's all we found: " << cntr << " record(s).\n";
+                              std::cout << "\nThat's all we found: " << cntr << " record(s).\n";
                           }
                           break;
                       }
@@ -166,6 +174,10 @@ void Base::searchRec() {
 }
 
 void Base::updateRec() {
+    if(localBase.empty()) {
+        std::cout << "There's no record\n\n";
+        return;
+    }
     showAllRecords();
     std::cout << "Enter the record ID, that you want to edit, from the given list: ";
     unsigned num;
@@ -181,6 +193,7 @@ void Base::updateRec() {
         std::cin >> editor;
         if(editor.num == it->first) {
             it->second = editor;
+            std::cout << "\nThe record successfully updated.\n\n";
         } else {
             std::cout << "\nYou can't change account ID\n\n";
         }
@@ -190,6 +203,10 @@ void Base::updateRec() {
 }
 
 void Base::rmRec() {
+    if(localBase.empty()) {
+        std::cout << "There's no record\n\n";
+        return;
+    }
     showAllRecords();
     std::cout << "Enter the record ID, that you want to remove, from the given list: ";
     unsigned num;
@@ -197,7 +214,7 @@ void Base::rmRec() {
     std::map< unsigned, Account >::const_iterator it = localBase.find(num);
     if(it != localBase.end()) {
         std::cout << it->second;
-        std::cout << "The record removed\n";
+        std::cout << "\nThe record removed\n\n";
         localBase.erase(it);
     } else {
         std::cout << "There's no account on this ID\n";
@@ -216,5 +233,3 @@ void Base::showAllRecords() {
     }
     std::cout << "\n";
 }
-    
-
