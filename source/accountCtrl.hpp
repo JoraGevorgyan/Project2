@@ -4,14 +4,17 @@
 #include <utility> //for pair
 #include <map>
 #include "./json/single_include/nlohmann/json.hpp"
-
+//
+//"account.cpp"
+//"base.cpp"
+//
 using ULLong = unsigned long long;
 using json = nlohmann::json;
 struct Account {
         Account();
         Account(const unsigned&, const std::string&, const std::string&, const ULLong&);
-        std::istream& operator >> (std::istream&);
-        std::ostream& operator << (std::ostream&);
+        friend std::istream& operator >> (std::istream& in, Account& a);
+        friend std::ostream& operator << (std::ostream& out, const Account& a);
         friend struct Base;
     protected:
         unsigned num;  //account ID

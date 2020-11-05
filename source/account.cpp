@@ -59,7 +59,7 @@ std::pair<std::string, bool> getName(std::string str) {
         
 
 
-std::istream& Account::operator >> (std::istream& in) {
+std::istream& operator >> (std::istream& in, Account& a) {
     std::string inputStr;
     /*
      * input number for Account Id as string and test it before initialization
@@ -70,7 +70,7 @@ std::istream& Account::operator >> (std::istream& in) {
         in >> inputStr;
         std::pair<unsigned, bool> result = getNumber< unsigned >(inputStr, UINT_MAX);
             if(result.second) {
-            num = result.first;
+            a.num = result.first;
             break;
         }
     }
@@ -83,7 +83,7 @@ std::istream& Account::operator >> (std::istream& in) {
         in >> inputStr;
         std::pair<std::string, bool> result = getName(inputStr);
         if(result.second) {
-            firstName = result.first;
+            a.firstName = result.first;
             break;
         }
     }
@@ -96,8 +96,8 @@ std::istream& Account::operator >> (std::istream& in) {
         in >> inputStr;
         std::pair<std::string, bool> result = getName(inputStr);
         if(result.second) {
-            if(result.first != firstName) {
-                lastName = result.first;
+            if(result.first != a.firstName) {
+                a.lastName = result.first;
                 break;
             }
             std::cout << "first and last names are the same "
@@ -113,18 +113,18 @@ std::istream& Account::operator >> (std::istream& in) {
         in >> inputStr;
         std::pair<ULLong, bool> result = getNumber< ULLong >(inputStr, ULLONG_MAX);
         if(result.second) {
-            balance = result.first;
+            a.balance = result.first;
             break;
         }
     }
     return in;
 }
 
-std::ostream& Account::operator << (std::ostream& out) {
-    out << "Record " << num << " has following data:"
-        << "\nAccount Number (ID): " << num
-        << "\nFirst Name: " << firstName
-        << "\nLast Name: " << lastName
-        << "\nCurrent Balance: " << balance << '\n';
+std::ostream& operator << (std::ostream& out, const Account& a) {
+    out << "Record " << a.num << " has following data:"
+        << "\nAccount Number (ID): " << a.num
+        << "\nFirst Name: " << a.firstName
+        << "\nLast Name: " << a.lastName
+        << "\nCurrent Balance: " << a.balance << '\n';
     return out;
 }
