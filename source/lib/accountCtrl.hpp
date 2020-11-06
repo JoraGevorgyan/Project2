@@ -3,7 +3,7 @@
 #include <string>
 #include <utility> //for pair
 #include <map>     // for local container
-#include "./json/single_include/nlohmann/json.hpp"
+#include "json.hpp"
 
 /*
  * you need to ignore these 
