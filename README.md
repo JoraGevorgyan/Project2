@@ -1,13 +1,12 @@
 #       **Account Information System**
 #
-# 
 ## General info
-    This project will work with bank account base.
-    There are any options for working with them,
-    and when program ended, all data will be saved in the base file.
+   This project will work with a database of Bank accounts.
+    There are many ways to work with them, and when the program finishes, all the data will be saved in the base file.
 
-## Setup
-    To run this project you need to run the following commands in your terminal
+## **Setup**
+   To compile and run this project, you need to run the following commands in your terminal.
+#
 step 1:
 ```sh
 $ chmod +x ./build.sh
@@ -23,9 +22,9 @@ $ make
 $ ./editBase
 ```
 #
-### *project created with* **[nlohmann/json](https://github.com/nlohmann/json)** *librery*
+### *A project created using* **[nlohmann/json](https://github.com/nlohmann/json)** *library.*
 #
-## ***File Location Structure***
+## ***The Structure Of The File Location***
 
 ```txt
 main directory
@@ -44,7 +43,7 @@ main directory
 |   |   |
 |   |   |__ json.hpp ........... nlohmann's librery for working with .json files
 |   |   |
-|   |   |__ CMakeLists.txt ........................... description for libreries
+|   |   |__ CMakeLists.txt ........................... description for libraries
 |   |
 |   |__ ./program
 |   |   |
