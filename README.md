@@ -1,15 +1,35 @@
-#project2
+#       **Account Information System**
+#
+# 
+## General info
+    This project will work with bank account base.
+    There are any options for working with them,
+    and when program ended, all data will be saved in the base file.
 
-#line of commands for using project
+## Setup
+    To run this project you need to run the following commands in your terminal
+step 1:
+```sh
+$ chmod +x ./build.sh
+$ ./build.sh
+```
+step 2:
+```sh
+$ cd ./_build/program/
+```
+step 3:
+```sh
+$ make
+$ ./editBase
+```
+#
+### *project created with* **[nlohmann/json](https://github.com/nlohmann/json)** *librery*
+#
+## ***File Location Structure***
 
-step 1: chmod +x build.sh
-step 2: ./build.sh
-step 3: cd _build/program
-step 4: ENJOY
-
-#info about file locations for users
-
-this directory
+```txt
+main directory
+|
 |__ ./_build/ .... directory for building results (must be made from ./build.sh)
 |
 |__ ./source/ ............................ directory for source files of project
@@ -36,6 +56,4 @@ this directory
 |   |__ CMakeLists.txt ........................... description for program files
 |   |
 |__ ./build.sh .................................... simple bash script for Cmake
-
-
-
+```
