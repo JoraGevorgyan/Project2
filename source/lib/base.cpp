@@ -17,7 +17,7 @@ Base::Base() {  // if ther's no given file, set as default
         from_json(inputBase, localBase);
     }
 
-Base::Base(std::string path) // if there's given data file path, do the same with it
+Base::Base(std::string path) // if there's given file path, do the same with it
     :pathToBase(path)
     {
         std::ifstream ifs(pathToBase);
@@ -100,9 +100,13 @@ void Base::showRec() {
     }
     showAllRecords();
     std::cout << "Enter the record ID, that you want to see, from the given list: ";
-    unsigned num;
-    std::cin >> num;
-    std::map< unsigned, Account >::iterator it = localBase.find(num);
+    std::pair< unsigned, bool > input = readUINT(std::cin);
+    if(!input.second) {
+        std::cout << "There's wrong input, please type a positive number "
+            << "and no longer than 4294967295\n";
+        return;
+    }
+    std::map< unsigned, Account >::iterator it = localBase.find(input.first);
     if(it != localBase.end()) {
         std::cout << it->second << "\n";
     } else {
@@ -120,10 +124,10 @@ void Base::searchRec() {
         std::cout << "Select one option below to search a Record\n"
             << "        1-->Search with Record's name\n"
             << "        2-->Search with Record's surname\n"
-            << "        0-->For exit\n";
-        char option;
+            << "        0-->For exit\n"
+            << "Enter your choice: ";
+        char option = readOption(std::cin);
         unsigned cntr = 0; // for counting found results
-        std::cin >> option;
         switch(option) {
             case '0':
                 loopTest = false;
@@ -167,7 +171,8 @@ void Base::searchRec() {
                           break;
                       }
             default: {
-                         std::cout << "ther's no option\nPlease try  again\n";
+                         std::cout << "ther's no option\n" 
+                             << "Please try  again\n";
                      }
         }
     }
@@ -180,11 +185,15 @@ void Base::updateRec() {
     }
     showAllRecords();
     std::cout << "Enter the record ID, that you want to edit, from the given list: ";
-    unsigned num;
-    std::cin >> num;
-    std::map< unsigned, Account >::iterator it = localBase.find(num);
+    std::pair< unsigned, bool > input = readUINT(std::cin);
+    if(!input.second) {
+        std::cout << "There's wrong input, please type a positive number "
+            << "and no longer than 4294967295\n";
+        return;
+    }
+    std::map< unsigned, Account >::iterator it = localBase.find(input.first);
     if(it != localBase.end()) {
-        std::cout << "Record " << num << " has following data:\n";
+        std::cout << "Record " << input.first << " has following data:\n";
         std::cout << it->second;
         std::string tmp(40, '_');
         std::cout << tmp
@@ -209,9 +218,13 @@ void Base::rmRec() {
     }
     showAllRecords();
     std::cout << "Enter the record ID, that you want to remove, from the given list: ";
-    unsigned num;
-    std::cin >> num;
-    std::map< unsigned, Account >::const_iterator it = localBase.find(num);
+    std::pair< unsigned, bool > input = readUINT(std::cin);
+    if(!input.second) {
+        std::cout << "There's wrong input, please type a positive number "
+            << "and no longer than 4294967295\n";
+        return;
+    }
+    std::map< unsigned, Account >::const_iterator it = localBase.find(input.first);
     if(it != localBase.end()) {
         std::cout << it->second;
         std::cout << "\nThe record removed\n\n";
@@ -233,3 +246,32 @@ void Base::showAllRecords() {
     }
     std::cout << "\n";
 }
+
+char readOption(std::istream& in) {
+    char option;
+    std::string input;
+    in >> input;
+    option = (input.size() == 1) ? input[0] : -1;
+    return option;
+}
+
+
+std::pair< unsigned, bool > readUINT(std::istream& in) {
+    std::pair< unsigned, bool > res(0, true);
+    std::string input;
+    in >> input;
+    if(input.size() > 10) { //input is longer then MAX_UINT
+        res.second = false;
+        return res;
+    }
+    for(const char& curr : input) {
+        if(curr < '0' || curr > '9') {
+            res.second = false;
+            return res;
+        }
+        res.first *= 10;
+        res.first += curr - '0';
+    }
+    return res;
+}
+

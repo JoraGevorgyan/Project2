@@ -3,14 +3,8 @@
 #include <string>
 #include <utility> //for pair
 #include <map>     // for local container
+#include <climits> // for max size of types
 #include "json.hpp"
-
-/*
- * you need to ignore these 
- * "main.cpp"
- *"account.cpp"
- *"base.cpp"
- */
 
 using ULLong = unsigned long long;
 using json = nlohmann::json;
@@ -94,3 +88,5 @@ std::pair<type, bool> getNumber(std::string str, type maxSize) {
     return res;
 }
 
+char readOption(std::istream& in);
+std::pair< unsigned, bool > readUINT(std::istream& in);

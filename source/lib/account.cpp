@@ -1,5 +1,4 @@
 #include "accountCtrl.hpp"
-#include <climits> // for max size of types
 
 Account::Account()
     :num(0)
@@ -22,14 +21,14 @@ Account::Account(const unsigned& num, const std::string& firstName
 std::pair<std::string, bool> getName(std::string str) {
     std::pair<std::string, bool> res("unknown", true);
     if(str.size() == 0) {
-        std::cout << "ther's no name\nTry again";
+        std::cout << "ther's no name\nTry again\n";
         res.second = false;
         return res;
     }
     if(str[0] < 'A' || str[0] > 'Z') {
         std::cout << "Wrong input!\n"
             << "The name must start with a capital letter and contain "
-            << "only the characters \"a - z\"\n Please try again";
+            << "only the characters \"a - z\"\n Please try again\n";
         res.second = false;
         return res;
     }
@@ -40,7 +39,7 @@ std::pair<std::string, bool> getName(std::string str) {
             if(str[i] != ' ') {
                 std::cout << "Wrong input!\n"
                     << "The name must start with a capital letter and contain "
-                    << "only the characters \"a - z\"\n Please try again";
+                    << "only the characters \"a - z\"\n Please try again\n";
                 res.second = false;
                 return res;
             }

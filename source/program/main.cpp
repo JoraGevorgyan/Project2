@@ -13,8 +13,7 @@ int main() {
             << "        5--> Delete record\n"
             << "        0--> Quit\n"
             << "Enter your choice: ";
-        char option;
-        std::cin >> option;
+        char option = readOption(std::cin);
         switch(option) {
             case('0'): // quit program
                 loopTest = false;
@@ -33,6 +32,10 @@ int main() {
                 break;
             case('5'): //delete record
                 editBase.rmRec();
+                break;
+            case(-1): // there's long input
+                std::cout << "\nThere's long input, you need to write only one character\n"
+                    << "Please try again\n\n";
                 break;
             default: //there's no option, user needs to try again
                 std::cout << "\nThere's no option: \"" 
