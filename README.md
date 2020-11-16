@@ -5,7 +5,9 @@
     There are many ways to work with them, and when the program finishes, all the data will be saved in the base file.
 
 ## **Setup**
-   To compile and run this project, you need to run the following commands in your terminal.
+    To compile and run this project, you need to run the following commands in your terminal.
+    Ued g++ version: (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0
+    Used cmake version 3.16.3
 #
 step 1:
 ```sh
