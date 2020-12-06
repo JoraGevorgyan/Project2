@@ -1,1 +1,6 @@
 ./source/.*
+./lib/.*
+./program/.*
+./_build
+./editBase
+

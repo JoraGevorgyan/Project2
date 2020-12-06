@@ -1,27 +1,24 @@
 #       **Account Information System**
 #
+#
 ## General info
+```txt
    This project will work with a database of Bank accounts.
-    There are many ways to work with them, and when the program finishes, all the data will be saved in the base file.
+    There are many ways to work with them, and when the program finishes, all data will be saved in the base file.
+```
 
 ## **Setup**
-    To compile and run this project, you need to run the following commands in your terminal.
-    Ued g++ version: (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0
+```txt
+    To compile and run this project,
+        you need to run the following commands in your terminal.
+    Used g++ version: (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0
     Used cmake version 3.16.3
+```
+
 #
-step 1:
 ```sh
 $ chmod +x ./build.sh
 $ ./build.sh
-```
-step 2:
-```sh
-$ cd ./_build/program/
-```
-step 3:
-```sh
-$ make
-$ ./editBase
 ```
 #
 ### *A project created using* **[nlohmann/json](https://github.com/nlohmann/json)** *library.*
@@ -37,11 +34,25 @@ main directory
 |   |
 |   |__ ./lib/ ......................................... directory for libreries
 |   |   |
-|   |   |__ account.cpp
+|   |   |__ AccountBaseCtrl.hpp
 |   |   |
-|   |   |__ base.cpp
+|   |   |__ AccountBaseCtrl.cpp
 |   |   |
-|   |   |__ accountCtrl.hpp ..................................... my header file
+|   |   |
+|   |   |__ Account.hpp
+|   |   |
+|   |   |__ Account.cpp
+|   |   |
+|   |   |
+|   |   |__ AccountBase.hpp
+|   |   |
+|   |   |__ AccountBase.cpp
+|   |   |
+|   |   |
+|   |   |__ UserConnection.hpp
+|   |   |
+|   |   |__ UserConnection.cpp
+|   |   |
 |   |   |
 |   |   |__ json.hpp ........... nlohmann's librery for working with .json files
 |   |   |
@@ -51,7 +62,7 @@ main directory
 |   |   |
 |   |   |__ main.cpp
 |   |   |
-|   |   |__ CMakeLists ........................... description for project files
+|   |   |__ CMakeLists.txt ....................... description for project files
 |   |
 |   |
 |   |__ CMakeLists.txt ........................... description for program files
