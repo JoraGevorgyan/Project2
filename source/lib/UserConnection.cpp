@@ -1,6 +1,6 @@
 #include "UserConnection.hpp"
 
-void UserConnectionFromConsole::sendMessage(const std::string message) {
+void UserConnectionFromConsole::sendMessage(const std::string& message) {
     std::cout << message;
 }
 

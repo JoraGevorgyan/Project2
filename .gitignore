@@ -1,6 +1,6 @@
-./source/.*
-./lib/.*
-./program/.*
-./_build
-./editBase
+*.json
+.*
+_build/
+editBase
+
 

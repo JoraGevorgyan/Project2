@@ -8,7 +8,7 @@ using ULLong = unsigned long long;
 
 class UserConnection {
     public:
-        virtual void sendMessage(const std::string message) = 0;
+        virtual void sendMessage(const std::string& message) = 0;
         
         virtual ULLong readNumber(ULLong maxValue) = 0;
         virtual std::string readName() = 0;
@@ -19,7 +19,7 @@ class UserConnection {
 
 class UserConnectionFromConsole : public UserConnection {
     public:
-        virtual void sendMessage(const std::string message);
+        virtual void sendMessage(const std::string& message);
         
         virtual ULLong readNumber(ULLong maxValue);
         virtual std::string readName();
