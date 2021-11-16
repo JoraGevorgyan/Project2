@@ -3,5 +3,5 @@ cd _build
 cmake ../source
 cd program
 make
-cp ./editBase ../../
+cp ./editBase ./editBase-copy
 
