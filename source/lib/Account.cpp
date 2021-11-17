@@ -2,9 +2,9 @@
 
 Account::Account(unsigned ID, std::string name, std::string surname, ULLong balance)
     :ID(ID)
-    ,balance(balance)
-    ,name(name)
-    ,surname(surname)
+     ,balance(balance)
+     ,name(name)
+     ,surname(surname)
 {
     UserConnectionFromConsole* userFromConsole = new UserConnectionFromConsole();
     this->user = userFromConsole;
