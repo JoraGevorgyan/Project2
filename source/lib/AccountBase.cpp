@@ -108,6 +108,7 @@ unsigned AccountBaseJSON::searchBySurname() {
     this->user->sendMessage("Enter surname for search: ");
     std::string customName = this->user->readName();
     unsigned foundNamesCount = 0;
+
     for(const std::pair< unsigned, Account >& tmp : localAccounts) {
         if(tmp.second.getSurname() == customName) {
             this->user->sendMessage(std::to_string(tmp.first) + " ");
