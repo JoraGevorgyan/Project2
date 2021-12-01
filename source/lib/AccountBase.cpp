@@ -41,7 +41,7 @@ void AccountBaseJSON::addRec() {
     Account tmp;
     tmp.readFromUser();
 
-    if(!this->localAccounts.insert(std::pair< unsigned, Account >(tmp.getID(), tmp)).second) {
+    if (!this->localAccounts.insert(std::pair< unsigned, Account >(tmp.getID(), tmp)).second) {
         this->user->sendMessage("\nAn account with that ID already exist!\n\n");
     } else {
         this->user->sendMessage("\nRecord successfully added.\n\n");
@@ -49,7 +49,7 @@ void AccountBaseJSON::addRec() {
 }
 
 void AccountBaseJSON::showRec() {
-    if(this->localAccounts.empty()) {
+    if (this->localAccounts.empty()) {
         this->user->sendMessage("There's no record!\n\n");
         return;
     }
@@ -58,7 +58,7 @@ void AccountBaseJSON::showRec() {
     unsigned customID = (unsigned) this->user->readNumber(UINT_MAX);
 
     std::map< unsigned, Account >::iterator fit = this->localAccounts.find(customID);
-    if(fit != this->localAccounts.end()) {
+    if (fit != this->localAccounts.end()) {
         fit->second.showInfo();
     } else {
         this->user->sendMessage("There's no account on that ID\n\n");
