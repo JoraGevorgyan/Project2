@@ -20,6 +20,10 @@ Account::Account(const Account& other)
 }
 
 unsigned Account::getID() const {
+	if (this->ID < 0) {
+		std::cerr << "something wrong!!" << std::endl;
+	}
+
     return this->ID;
 }
 
