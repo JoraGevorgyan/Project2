@@ -1,6 +1,11 @@
 #include "UserConnection.hpp"
 
 void UserConnectionFromConsole::sendMessage(const std::string& message) {
+	if (message.empty()) {
+		std::cout << "got an empty message!!" << std::endl;
+		return;
+	}
+
     std::cout << message;
 }
 
